@@ -2,12 +2,12 @@ import { StyleSheet } from 'react-native';
 
 import { View } from '../../components/Themed';
 
-export default function TodoTabScreen() {
+export default function AboutTabScreen() {
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Todo</Text>
+      {/* <Text style={styles.title}>Tab Two</Text>
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+      {/* <EditScreenInfo path="app/(tabs)/two.tsx" /> */}
     </View>
   );
 }
