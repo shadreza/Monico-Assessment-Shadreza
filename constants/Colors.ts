@@ -16,4 +16,26 @@ export default {
     tabIconDefault: '#ccc',
     tabIconSelected: tintColorDark,
   },
+  soothingColors : [
+    "#DFCCFB",
+    "#FFD1DA",
+    "#FFDDCC",
+    "#9BE8D8",
+    "#FFCCCC",
+    "#FFEEF4",
+    "#FFF9DE",
+    "#AEE2FF",
+    "#FFD3B0",
+    "#DAF5FF",
+    "#E3DFFD",
+    "#FFF8E1",
+    "#FFE5F1",
+    "#FBFACD",
+    "#CDF0EA",
+    "#FFE1A8",
+    "#CCF3EE",
+    "#D6E5FA",
+    "#FFF5AB",
+    "#E4F1FF"
+  ]
 };

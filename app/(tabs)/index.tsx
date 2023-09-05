@@ -1,9 +1,9 @@
-import { ScrollView, StyleSheet } from 'react-native';
-
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet } from 'react-native';
 import { Text, View } from '../../components/Themed';
-import SingleTodo from '../../components/todo/SingleTodo';
+import SingleTodoList from '../../components/todo/SingleTodoList';
+import Colors from '../../constants/Colors';
 
 const TodoTabScreen = () => {
 
@@ -15,11 +15,29 @@ const TodoTabScreen = () => {
     title: string,
     completed: boolean
   }[]>()
+  const [distinctUsers, setDistinctUsers] = useState<number[]>()
+
+  const getDistinctUserIds = (todoList: {
+      userId: number,
+      id: number,
+      title: string,
+      completed: boolean
+    }[]) => {
+    const distinctUserIdList: number[] = []
+    todoList.forEach((todo) => {
+      if (!distinctUserIdList.includes(todo.userId)) {
+        distinctUserIdList.push(todo.userId)
+      }
+    })
+    return distinctUserIdList
+  }
 
   const getTodosFromEndPoint = async () => {
     const todoResponse = await axios.get(todoUrlLink)
     if (todoResponse && todoResponse.data && todoResponse.data.length > 0) {
       setTodos(todoResponse.data)
+      const distinctUserIds = getDistinctUserIds(todoResponse.data)
+      setDistinctUsers(distinctUserIds)
     }
   }
 
@@ -43,11 +61,26 @@ const TodoTabScreen = () => {
   return (
     <View style={styles.container}>
       {
-        todos && todos.length > 0 ?
+        todos && todos.length > 0 && distinctUsers && distinctUsers.length > 0 ?
           <ScrollView style={styles.todoListView}>
-            {todos.map((todo, i) =>
-              <SingleTodo key={i} todo={todo} counter={i} sayHiFromIndex={(todoParam) => sayHiFromIndex(todoParam)} />
-            )}
+            {
+              distinctUsers.map((userId, i) => 
+                <View style={[
+                  styles.distinctUserTodo,
+                  {backgroundColor: Colors.soothingColors[(i)%Colors.soothingColors.length]}
+                ]} key={i}>
+                  <Text style={styles.distinctUserHeading}>
+                    User { userId }
+                  </Text>
+                  {
+                    (todos.filter((todo) => todo.userId === userId))
+                      .map((todo, j) => 
+                        <SingleTodoList key={j} todo={todo} counter={j} sayHiFromIndex={(todoParam) => sayHiFromIndex(todoParam)} />
+                  )}
+                </View>
+              )
+            }
+
           </ScrollView>
           :
           <Text>No Todos Found !</Text>
@@ -63,7 +96,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 2,
   },
   title: {
     fontSize: 20,
@@ -77,5 +109,17 @@ const styles = StyleSheet.create({
   todoListView: {
     width: '100%',
     padding: 2
+  },
+  distinctUserTodo: {
+    marginBottom: 10,
+    borderRadius: 12,
+    paddingVertical: 12
+  },
+  distinctUserHeading: {
+    textAlign: 'center', 
+    color: 'black', 
+    fontSize: 20, 
+    fontWeight: '800', 
+    marginBottom: 6
   }
 });

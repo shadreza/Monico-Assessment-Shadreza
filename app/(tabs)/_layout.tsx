@@ -3,13 +3,14 @@ import { Link, Tabs } from 'expo-router';
 import { Pressable, useColorScheme } from 'react-native';
 
 import Colors from '../../constants/Colors';
+import TabBarIcon from '../../functionalities/Icon/TabBarIcon';
 
-const TabBarIcon = (props: {
-  name: React.ComponentProps<typeof FontAwesome>['name'];
-  color: string;
-}) => {
-  return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
-}
+// const TabBarIcon = (props: {
+//   name: React.ComponentProps<typeof FontAwesome>['name'];
+//   color: string;
+// }) => {
+//   return <FontAwesome size={28} style={{ marginBottom: -3 }} {...props} />;
+// }
 
 const TabLayout = () => {
   const colorScheme = useColorScheme();
@@ -23,21 +24,21 @@ const TabLayout = () => {
         name="index"
         options={{
           title: 'Todo',
-          tabBarIcon: ({ color }) => <TabBarIcon name="list" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon size={28} name="list" color={color} />,
         }}
       />
       <Tabs.Screen
         name="maps"
         options={{
           title: 'Maps',
-          tabBarIcon: ({ color }) => <TabBarIcon name="map" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map" color={color} />,
         }}
       />
       <Tabs.Screen
         name="about"
         options={{
           title: 'About',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <TabBarIcon size={28} name="code" color={color} />,
           headerRight: () => (
             <Link href="/modal" asChild>
               <Pressable>
