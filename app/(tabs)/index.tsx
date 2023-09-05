@@ -1,13 +1,34 @@
 import { StyleSheet } from 'react-native';
 
-import { View } from '../../components/Themed';
+import axios from 'axios';
+import { useEffect, useState } from 'react';
+import { Text, View } from '../../components/Themed';
 
 export default function TodoTabScreen() {
+
+  const todoUrlLink = "https://jsonplaceholder.typicode.com/todos"
+
+  const [todos, setTodos] = useState<{
+    userId: number,
+    id: number,
+    title: string,
+    completed: boolean
+  }[]>()
+
+  const getTodosFromEndPoint = async () => {
+    const todoResponse = await axios.get(todoUrlLink)
+    if (todoResponse && todoResponse.data && todoResponse.data.length > 0) {
+      setTodos(todoResponse.data)
+    }
+  }
+  
+  useEffect(() => {
+    getTodosFromEndPoint()
+  }, [])
+
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Todo</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-      {/* <EditScreenInfo path="app/(tabs)/index.tsx" /> */}
+      <Text>Total Todo In List = { todos ? todos.length : 0 }</Text>
     </View>
   );
 }
