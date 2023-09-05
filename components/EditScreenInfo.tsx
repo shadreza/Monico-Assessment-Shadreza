@@ -7,7 +7,7 @@ import { MonoText } from './StyledText';
 import { Text, View } from './Themed';
 
 
-export default function EditScreenInfo({ path }: { path: string }) {
+const EditScreenInfo = ({ path }: { path: string }) => {
   return (
     <View>
       <View style={styles.getStartedContainer}>
@@ -45,6 +45,8 @@ export default function EditScreenInfo({ path }: { path: string }) {
     </View>
   );
 }
+
+export default EditScreenInfo
 
 const styles = StyleSheet.create({
   getStartedContainer: {

@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 
 import { View } from '../../components/Themed';
 
-export default function MapTabScreen() {
+const MapTabScreen = () => {
   return (
     <View style={styles.container}>
       {/* <Text style={styles.title}>Tab Two</Text>
@@ -11,6 +11,8 @@ export default function MapTabScreen() {
     </View>
   );
 }
+
+export default MapTabScreen
 
 const styles = StyleSheet.create({
   container: {
