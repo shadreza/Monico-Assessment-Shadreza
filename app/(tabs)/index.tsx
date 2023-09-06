@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet } from 'react-native';
+import { ScrollView, StyleSheet, useColorScheme } from 'react-native';
 import { Text, View } from '../../components/Themed';
 import SingleTodoList from '../../components/todo/SingleTodoList';
 import Colors from '../../constants/Colors';
@@ -8,6 +8,8 @@ import Colors from '../../constants/Colors';
 const TodoTabScreen = () => {
 
   const todoUrlLink = "https://jsonplaceholder.typicode.com/todos"
+
+  const theme = useColorScheme() ?? 'light'
 
   const [todos, setTodos] = useState<{
     userId: number,
@@ -67,6 +69,7 @@ const TodoTabScreen = () => {
               distinctUsers.map((userId, i) => 
                 <View style={[
                   styles.distinctUserTodo,
+                  theme === 'dark' ? { borderColor: '#848480' } : { borderColor: 'black' },
                   {backgroundColor: Colors.soothingColors[(i)%Colors.soothingColors.length]}
                 ]} key={i}>
                   <Text style={styles.distinctUserHeading}>
@@ -75,7 +78,7 @@ const TodoTabScreen = () => {
                   {
                     (todos.filter((todo) => todo.userId === userId))
                       .map((todo, j) => 
-                        <SingleTodoList key={j} todo={todo} counter={j} sayHiFromIndex={(todoParam) => sayHiFromIndex(todoParam)} />
+                        <SingleTodoList key={j} todo={todo} color={Colors.soothingColors[(i)%Colors.soothingColors.length]} sayHiFromIndex={(todoParam) => sayHiFromIndex(todoParam)} />
                   )}
                 </View>
               )
@@ -108,12 +111,13 @@ const styles = StyleSheet.create({
   },
   todoListView: {
     width: '100%',
-    padding: 2
+    padding: 12,
   },
   distinctUserTodo: {
-    marginBottom: 10,
+    marginBottom: 24,
     borderRadius: 12,
-    paddingVertical: 12
+    paddingVertical: 12,
+    borderWidth: 4,
   },
   distinctUserHeading: {
     textAlign: 'center', 
