@@ -86,7 +86,7 @@ const TodoTabScreen = () => {
 
           </ScrollView>
           :
-          <Text>No Todos Found !</Text>
+          <Text>No Todos Found Yet!</Text>
       }
     </View>
   );

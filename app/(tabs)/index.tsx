@@ -1,32 +1,27 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import { View } from '../../components/Themed';
+const index = () => {
 
-const AboutTabScreen = () => {
   return (
-    <View style={styles.container}>
-      {/* <Text style={styles.title}>Tab Two</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
-      {/* <EditScreenInfo path="app/(tabs)/two.tsx" /> */}
+    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+      {/* <LottieView
+        style={{
+          width: 250,
+          height: 250,
+        }}
+        source={require('../../assets/animations/working.json')}
+        autoPlay
+        loop
+      /> */}
+      <Text style={{
+        fontSize: 50,
+      }}>👋</Text>
+      <Text style={{color: '#4D2DB7', fontSize: 40, fontFamily: 'UbuntuBold'}}>Hi there</Text>
     </View>
-  );
+  )
 }
 
-export default AboutTabScreen
+export default index
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+const styles = StyleSheet.create({})
