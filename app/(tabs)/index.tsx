@@ -43,7 +43,7 @@ const TodoTabScreen = () => {
     }
   }
 
-  const sayHiFromIndex = (todoParam: {
+  const toggleTodoCompletionFromParent = (todoParam: {
       userId: number,
       id: number,
       title: string,
@@ -78,7 +78,7 @@ const TodoTabScreen = () => {
                   {
                     (todos.filter((todo) => todo.userId === userId))
                       .map((todo, j) => 
-                        <SingleTodoList key={j} todo={todo} color={Colors.soothingColors[(i)%Colors.soothingColors.length]} sayHiFromIndex={(todoParam) => sayHiFromIndex(todoParam)} />
+                        <SingleTodoList key={j} todo={todo} color={Colors.soothingColors[(i)%Colors.soothingColors.length]} toggleTodoCompletionFromParent={(todoParam) => toggleTodoCompletionFromParent(todoParam)} />
                   )}
                 </View>
               )

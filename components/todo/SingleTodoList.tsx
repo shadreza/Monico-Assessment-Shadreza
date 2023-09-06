@@ -10,7 +10,7 @@ const SingleTodo = (props: {
             completed: boolean
         },
         color: string,
-        sayHiFromIndex: (todo: {
+        toggleTodoCompletionFromParent: (todo: {
             userId: number,
             id: number,
             title: string,
@@ -45,7 +45,6 @@ const SingleTodo = (props: {
     
     return (
         <TouchableOpacity
-            onPress={() => props.sayHiFromIndex(todoInfo)}
             style={[
                 styles.singleTodoView,
                 generateBoxShadowStyle(-2, 6, '#171717', 0.4, 4, 10, 'black'),
@@ -67,14 +66,14 @@ const SingleTodo = (props: {
                 {backgroundColor: props.color}
             ]}
         >
-            <Text>
+            <TouchableOpacity onPress={() => props.toggleTodoCompletionFromParent(todoInfo)}>
                 {
                     todoInfo.completed ? 
                         <TabBarIcon name="check-square" size={24} color={'#90908D'} />
                         :
                         <TabBarIcon name="square-o" size={24} color={'black'} />
                 }
-            </Text>
+            </TouchableOpacity>
             <Text style={[
                 { color: 'black', width: '80%', fontSize: 16 },
                 todoInfo.completed ? styles.completedTodoTitle : {marginLeft: 0, marginRight: 2, textAlign: 'right'}
