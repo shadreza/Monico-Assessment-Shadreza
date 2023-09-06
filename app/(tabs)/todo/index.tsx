@@ -1,9 +1,12 @@
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, useColorScheme } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
 import { Text, View } from '../../../components/Themed';
 import SingleTodoList from '../../../components/todo/SingleTodoList';
 import Colors from '../../../constants/Colors';
+import { setTodos } from '../../../redux/features/todoLists/todoListsSlice';
+import { RootState } from '../../../redux/store';
 
 const TodoTabScreen = () => {
 
@@ -11,12 +14,10 @@ const TodoTabScreen = () => {
 
   const theme = useColorScheme() ?? 'light'
 
-  const [todos, setTodos] = useState<{
-    userId: number,
-    id: number,
-    title: string,
-    completed: boolean
-  }[]>()
+  const todos = useSelector((state: RootState) => state.todoListsFromStore.todoLists)
+
+  const dispatch = useDispatch()
+
   const [distinctUsers, setDistinctUsers] = useState<number[]>()
 
   const getDistinctUserIds = (todoList: {
@@ -37,7 +38,7 @@ const TodoTabScreen = () => {
   const getTodosFromEndPoint = async () => {
     const todoResponse = await axios.get(todoUrlLink)
     if (todoResponse && todoResponse.data && todoResponse.data.length > 0) {
-      setTodos(todoResponse.data)
+      dispatch(setTodos({todos: todoResponse.data}))
       const distinctUserIds = getDistinctUserIds(todoResponse.data)
       setDistinctUsers(distinctUserIds)
     }
@@ -50,9 +51,8 @@ const TodoTabScreen = () => {
       completed: boolean
     }) => {
     if (todos) {
-      setTodos(
-        todos.map((todo) => todo===todoParam ? {...todo, completed:!todo.completed} : todo)
-      )
+      const toggledTodo = todos.map((todo) => todo === todoParam ? { ...todo, completed: !todo.completed } : todo)
+      dispatch(setTodos({todos: toggledTodo}))
     }
   }
 
@@ -83,7 +83,6 @@ const TodoTabScreen = () => {
                 </View>
               )
             }
-
           </ScrollView>
           :
           <Text>No Todos Found Yet!</Text>

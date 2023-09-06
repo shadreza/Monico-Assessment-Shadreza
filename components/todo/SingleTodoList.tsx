@@ -1,22 +1,25 @@
+import { router } from 'expo-router';
 import React from 'react';
 import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 import TabBarIcon from '../../functionalities/Icon/TabBarIcon';
 
-const SingleTodo = (props: {
-        todo: {
-            userId: number,
-            id: number,
-            title: string,
-            completed: boolean
-        },
-        color: string,
-        toggleTodoCompletionFromParent: (todo: {
-            userId: number,
-            id: number,
-            title: string,
-            completed: boolean
-        }) => void
-}) => {
+const SingleTodo = (
+        props: {
+            todo: {
+                userId: number,
+                id: number,
+                title: string,
+                completed: boolean
+            },
+            color: string,
+            toggleTodoCompletionFromParent: (todo: {
+                userId: number,
+                id: number,
+                title: string,
+                completed: boolean
+            }) => void
+        }
+    ) => {
 
     const todoInfo = props.todo
     const generateBoxShadowStyle = (
@@ -28,23 +31,34 @@ const SingleTodo = (props: {
         elevation: number,
         shadowColorAndroid: string,
         ) => {
-        if (Platform.OS === 'ios') {
-            return {
-            shadowColor: shadowColorIos,
-            shadowOffset: {width: xOffset, height: yOffset},
-            shadowOpacity,
-            shadowRadius,
-            };
-        } else if (Platform.OS === 'android') {
-            return {
-            elevation,
-            shadowColor: shadowColorAndroid,
-            };
-        }
+            if (Platform.OS === 'ios') {
+                return {
+                shadowColor: shadowColorIos,
+                shadowOffset: {width: xOffset, height: yOffset},
+                shadowOpacity,
+                shadowRadius,
+                };
+            } else if (Platform.OS === 'android') {
+                return {
+                elevation,
+                shadowColor: shadowColorAndroid,
+                };
+            }
         };
     
     return (
         <TouchableOpacity
+            onPress={() => {
+                router.push({
+                    pathname: `/todoDetails/${todoInfo.id}`,
+                    params: {
+                        id: todoInfo.id,
+                        userId: todoInfo.userId,
+                        completed: todoInfo.completed ? 'true' : 'false',
+                        title: todoInfo.title
+                    }
+                })
+            }}
             style={[
                 styles.singleTodoView,
                 generateBoxShadowStyle(-2, 6, '#171717', 0.4, 4, 10, 'black'),
