@@ -17,8 +17,8 @@ const SingleTodo = (props: {
             completed: boolean
         }) => void
 }) => {
-    const todoInfo = props.todo
 
+    const todoInfo = props.todo
     const generateBoxShadowStyle = (
         xOffset: number,
         yOffset: number,
@@ -75,8 +75,8 @@ const SingleTodo = (props: {
                 }
             </TouchableOpacity>
             <Text style={[
-                { color: 'black', width: '80%', fontSize: 16, fontFamily: 'UbuntuRegular' },
-                todoInfo.completed ? styles.completedTodoTitle : {marginLeft: 0, marginRight: 2, textAlign: 'right'}
+                { color: 'black', width: '80%', fontSize: 16, fontFamily: 'UbuntuBold' },
+                todoInfo.completed ? styles.completedTodoTitle : {marginLeft: 12, justifyContent: 'flex-start',}
             ]} >{todoInfo.title}</Text>
         </TouchableOpacity>
     )
@@ -91,14 +91,13 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         borderWidth: 2,
         marginVertical: 6,
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        textAlign: 'left'
     },
     completedTodoTitle: {
         textDecorationLine: 'line-through',
         color: '#90908D',
-        textAlign: 'left',
-        marginRight: 0,
-        marginLeft: 2,
+        justifyContent: 'flex-end',
+        marginRight: 12,
     }
 })

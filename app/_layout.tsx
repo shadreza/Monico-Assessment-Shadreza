@@ -22,6 +22,8 @@ export default function RootLayout() {
     SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
     UbuntuRegular: require('../assets/fonts/Ubuntu/Ubuntu-Regular.ttf'),
     UbuntuBold: require('../assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
+    RobotoRegular: require('../assets/fonts/Roboto/Roboto-Regular.ttf'),
+    RobotoBlack: require('../assets/fonts/Roboto/Roboto-Black.ttf'),
     ...FontAwesome.font,
   });
 

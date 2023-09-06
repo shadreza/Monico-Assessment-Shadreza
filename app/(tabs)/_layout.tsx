@@ -20,13 +20,6 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="maps/index"
-        options={{
-          title: 'Maps',
-          tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map" color={color} />,
-        }}
-      />
-      <Tabs.Screen
         name="index"
         options={{
           title: 'About',
@@ -45,6 +38,13 @@ const TabLayout = () => {
               </Pressable>
             </Link>
           ),
+        }}
+      />
+      <Tabs.Screen
+        name="maps/index"
+        options={{
+          title: 'Maps',
+          tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map" color={color} />,
         }}
       />
     </Tabs>

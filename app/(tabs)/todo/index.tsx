@@ -73,7 +73,7 @@ const TodoTabScreen = () => {
                   {backgroundColor: Colors.soothingColors[(i)%Colors.soothingColors.length]}
                 ]} key={i}>
                   <Text style={styles.distinctUserHeading}>
-                    User { userId }
+                    USER { userId }
                   </Text>
                   {
                     (todos.filter((todo) => todo.userId === userId))
@@ -125,5 +125,6 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     fontWeight: '800', 
     marginBottom: 6,
+    fontFamily: 'RobotoBlack'
   }
 });
