@@ -16,8 +16,7 @@ const SingleTodo = (props: {
             title: string,
             completed: boolean
         }) => void
-    }) => {
-
+}) => {
     const todoInfo = props.todo
 
     const generateBoxShadowStyle = (

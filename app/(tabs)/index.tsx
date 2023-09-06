@@ -124,6 +124,6 @@ const styles = StyleSheet.create({
     color: 'black', 
     fontSize: 20, 
     fontWeight: '800', 
-    marginBottom: 6
+    marginBottom: 6,
   }
 });
