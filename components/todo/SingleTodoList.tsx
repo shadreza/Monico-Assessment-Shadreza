@@ -75,7 +75,7 @@ const SingleTodo = (props: {
                 }
             </TouchableOpacity>
             <Text style={[
-                { color: 'black', width: '80%', fontSize: 16 },
+                { color: 'black', width: '80%', fontSize: 16, fontFamily: 'UbuntuRegular' },
                 todoInfo.completed ? styles.completedTodoTitle : {marginLeft: 0, marginRight: 2, textAlign: 'right'}
             ]} >{todoInfo.title}</Text>
         </TouchableOpacity>

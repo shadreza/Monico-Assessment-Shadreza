@@ -1,98 +1,18 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, useColorScheme } from 'react-native';
-import { Text, View } from '../../components/Themed';
-import SingleTodoList from '../../components/todo/SingleTodoList';
-import Colors from '../../constants/Colors';
+import { StyleSheet } from 'react-native';
 
-const TodoTabScreen = () => {
+import { View } from '../../components/Themed';
 
-  const todoUrlLink = "https://jsonplaceholder.typicode.com/todos"
-
-  const theme = useColorScheme() ?? 'light'
-
-  const [todos, setTodos] = useState<{
-    userId: number,
-    id: number,
-    title: string,
-    completed: boolean
-  }[]>()
-  const [distinctUsers, setDistinctUsers] = useState<number[]>()
-
-  const getDistinctUserIds = (todoList: {
-      userId: number,
-      id: number,
-      title: string,
-      completed: boolean
-    }[]) => {
-    const distinctUserIdList: number[] = []
-    todoList.forEach((todo) => {
-      if (!distinctUserIdList.includes(todo.userId)) {
-        distinctUserIdList.push(todo.userId)
-      }
-    })
-    return distinctUserIdList
-  }
-
-  const getTodosFromEndPoint = async () => {
-    const todoResponse = await axios.get(todoUrlLink)
-    if (todoResponse && todoResponse.data && todoResponse.data.length > 0) {
-      setTodos(todoResponse.data)
-      const distinctUserIds = getDistinctUserIds(todoResponse.data)
-      setDistinctUsers(distinctUserIds)
-    }
-  }
-
-  const toggleTodoCompletionFromParent = (todoParam: {
-      userId: number,
-      id: number,
-      title: string,
-      completed: boolean
-    }) => {
-    if (todos) {
-      setTodos(
-        todos.map((todo) => todo===todoParam ? {...todo, completed:!todo.completed} : todo)
-      )
-    }
-  }
-
-  useEffect(() => {
-    getTodosFromEndPoint()
-  }, [])
-
+const AboutTabScreen = () => {
   return (
     <View style={styles.container}>
-      {
-        todos && todos.length > 0 && distinctUsers && distinctUsers.length > 0 ?
-          <ScrollView style={styles.todoListView}>
-            {
-              distinctUsers.map((userId, i) => 
-                <View style={[
-                  styles.distinctUserTodo,
-                  theme === 'dark' ? { borderColor: '#848480' } : { borderColor: 'black' },
-                  {backgroundColor: Colors.soothingColors[(i)%Colors.soothingColors.length]}
-                ]} key={i}>
-                  <Text style={styles.distinctUserHeading}>
-                    User { userId }
-                  </Text>
-                  {
-                    (todos.filter((todo) => todo.userId === userId))
-                      .map((todo, j) => 
-                        <SingleTodoList key={j} todo={todo} color={Colors.soothingColors[(i)%Colors.soothingColors.length]} toggleTodoCompletionFromParent={(todoParam) => toggleTodoCompletionFromParent(todoParam)} />
-                  )}
-                </View>
-              )
-            }
-
-          </ScrollView>
-          :
-          <Text>No Todos Found !</Text>
-      }
+      {/* <Text style={styles.title}>Tab Two</Text>
+      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" /> */}
+      {/* <EditScreenInfo path="app/(tabs)/two.tsx" /> */}
     </View>
   );
 }
 
-export default TodoTabScreen
+export default AboutTabScreen
 
 const styles = StyleSheet.create({
   container: {
@@ -109,21 +29,4 @@ const styles = StyleSheet.create({
     height: 1,
     width: '80%',
   },
-  todoListView: {
-    width: '100%',
-    padding: 12,
-  },
-  distinctUserTodo: {
-    marginBottom: 24,
-    borderRadius: 12,
-    paddingVertical: 12,
-    borderWidth: 4,
-  },
-  distinctUserHeading: {
-    textAlign: 'center', 
-    color: 'black', 
-    fontSize: 20, 
-    fontWeight: '800', 
-    marginBottom: 6,
-  }
 });
