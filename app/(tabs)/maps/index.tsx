@@ -17,7 +17,7 @@ const MapTabScreen = () => {
 
 
 
-  const mapRef = useRef()
+  const mapRef = useRef<MapView>(null)
 
   const geoLocationOfDhaka = {
     latitude: 23.810332,
@@ -66,10 +66,10 @@ const MapTabScreen = () => {
       >
         <MapViewDirections
           origin={fiveGeoMarkers[0]}
-          destination={fiveGeoMarkers[4]}
+          destination={fiveGeoMarkers[fiveGeoMarkers.length - 1]}
           apikey={GOOGLE_MAPS_API}
           strokeWidth={4}
-          strokeColor="#111111"
+          strokeColor="orange"
           optimizeWaypoints={true}
           onReady={(result) => {
             if (mapRef.current) {
