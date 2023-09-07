@@ -14,7 +14,7 @@ const TabLayout = () => {
       <Tabs.Screen
         name="todo/index"
         options={{
-          title: 'Todo',
+          title: 'Task Planner',
           tabBarIcon: ({ color }) => <TabBarIcon size={28} name="list" color={color} />,
         }}
       />
@@ -29,14 +29,14 @@ const TabLayout = () => {
       <Tabs.Screen
         name="maps1/index"
         options={{
-          title: 'Google Maps',
+          title: 'Map Director 01',
           tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map" color={color} />,
         }}
       />
       <Tabs.Screen
         name="maps2/index"
         options={{
-          title: 'Simple Maps',
+          title: 'Map Director 02',
           tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map-signs" color={color} />,
         }}
       />
