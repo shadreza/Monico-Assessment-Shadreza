@@ -1,9 +1,7 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-// import destinationMarker from '../../../assets/images/destination.png';
-// import startingMarker from '../../../assets/images/start.png';
 import { View } from '../../../components/Themed';
 
 const MapTabScreen = () => {
@@ -14,8 +12,6 @@ const MapTabScreen = () => {
   const destinationMarker = require('../../../assets/images/destination.png')
   const startingMarker = require('../../../assets/images/start.png')
   const pointMarker = require('../../../assets/images/point.png')
-
-
 
   const mapRef = useRef<MapView>(null)
 
@@ -52,6 +48,11 @@ const MapTabScreen = () => {
     }
   ]
 
+  const [currentMockLocation, setCurrentMockLocation] = useState({
+    latitude : fiveGeoMarkers[0].latitude,
+    longitude : fiveGeoMarkers[0].longitude,
+  })
+
   return (
     <View style={styles.container}>
       <MapView
@@ -68,9 +69,10 @@ const MapTabScreen = () => {
           origin={fiveGeoMarkers[0]}
           destination={fiveGeoMarkers[fiveGeoMarkers.length - 1]}
           apikey={GOOGLE_MAPS_API}
-          strokeWidth={4}
-          strokeColor="orange"
+          strokeWidth={3}
+          strokeColor="red"
           optimizeWaypoints={true}
+          waypoints={(fiveGeoMarkers.length > 2) ? fiveGeoMarkers.slice(1, -1) : undefined}
           onReady={(result) => {
             if (mapRef.current) {
               mapRef.current.fitToCoordinates(result.coordinates, {
@@ -99,6 +101,12 @@ const MapTabScreen = () => {
             title={fiveGeoMarkers[index].title}
           />
         ))}
+
+        <Marker
+          coordinate={{ latitude: currentMockLocation.latitude, longitude: currentMockLocation.longitude }}
+          image={currentMarker}
+          title="Current Location"
+        />
 
       </MapView>
     </View>
