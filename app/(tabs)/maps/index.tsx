@@ -13,6 +13,7 @@ const MapTabScreen = () => {
   const currentMarker = require('../../../assets/images/current-location.png')
   const destinationMarker = require('../../../assets/images/destination.png')
   const startingMarker = require('../../../assets/images/start.png')
+  const pointMarker = require('../../../assets/images/point.png')
 
 
 
@@ -27,22 +28,27 @@ const MapTabScreen = () => {
     {
       latitude: 23.81426279756788,
       longitude: 90.40413862620731,
+      title: 'Start',
     },
     {
       latitude: 23.808106397946844,
       longitude: 90.40328323667977,
+      title: 'Stop - 1',
     },
     {
       latitude: 23.798141522836097,
       longitude: 90.40168671183021,
+      title: 'Stop - 2',
     },
     {
       latitude: 23.78979393341548,
       longitude: 90.40020439868736,
+      title: 'Stop - 3',
     },
     {
       latitude: 23.77941034563629,
       longitude: 90.39837976942222,
+      title: 'Destination',
     }
   ]
 
@@ -83,13 +89,14 @@ const MapTabScreen = () => {
           <Marker
             key={index}
             coordinate={{ latitude: marker.latitude, longitude: marker.longitude }}
-            // image={
-            //   index === 0 ?
-            //     startingMarker :
-            //     index === fiveGeoMarkers.length - 1 ?
-            //       destinationMarker :
-            //       currentMarker
-            // }
+            image={
+              index === 0 ?
+                startingMarker :
+                index === fiveGeoMarkers.length - 1 ?
+                  destinationMarker :
+                  pointMarker
+            }
+            title={fiveGeoMarkers[index].title}
           />
         ))}
 
