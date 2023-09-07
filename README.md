@@ -1,6 +1,6 @@
 # Monico-Assessment-Shadreza
 
-![Self Manager HomePage](https://github.com/shadreza/Monico-Assessment-Shadreza/assets/45334134/ec5be495-2dbc-49bb-ac3c-dc32367d53b4)
+![Self Manager HomePage](https://drive.google.com/file/d/1pC_On4owMCa7Cz3W2KWPNZS-unRtHnK7/view?usp=drive_link)
 
     Task 1 : 
 
