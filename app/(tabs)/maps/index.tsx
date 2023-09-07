@@ -100,21 +100,6 @@ const MapTabScreen = () => {
           />
         ))}
 
-        {/* <Polyline
-          coordinates={fiveGeoMarkers}
-          strokeColor="#000" // fallback for when `strokeColors` is not supported by the map-provider
-          strokeColors={['#7F0000']}
-          strokeWidth={6}
-        />
-
-        <MapViewDirections
-          origin={fiveGeoMarkers[0]}
-          destination={fiveGeoMarkers[fiveGeoMarkers.length - 1]}
-          apikey='AIzaSyBwdGFBTBW04ZA34_9KmttPiybIs96TMfQ' // insert your API Key here
-          strokeWidth={4}
-          strokeColor="red"
-        /> */}
-
       </MapView>
     </View>
   );
