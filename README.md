@@ -1,5 +1,7 @@
 # Monico-Assessment-Shadreza
 
+![Self Manager HomePage](https://github.com/shadreza/Monico-Assessment-Shadreza/assets/45334134/ec5be495-2dbc-49bb-ac3c-dc32367d53b4)
+
     Task 1 : 
 
     fetch todos from an api , display the list, go to details when click a todo, Delete button to delete the todo.
