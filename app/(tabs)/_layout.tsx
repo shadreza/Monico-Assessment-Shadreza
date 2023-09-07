@@ -27,10 +27,17 @@ const TabLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="maps/index"
+        name="maps1/index"
         options={{
-          title: 'Maps',
+          title: 'Google Maps',
           tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="maps2/index"
+        options={{
+          title: 'Simple Maps',
+          tabBarIcon: ({ color }) => <TabBarIcon size={28} name="map-signs" color={color} />,
         }}
       />
     </Tabs>
