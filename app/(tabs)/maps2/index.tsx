@@ -124,7 +124,7 @@ const MapScreen = () => {
                 />
                 ))}
 
-        <Polyline coordinates={fiveGeoMarkers} strokeWidth={4} strokeColor="red" />
+        <Polyline coordinates={fiveGeoMarkers} strokeWidth={6} strokeColor="#FF1E1E" />
 
         </MapView>    
     </View>

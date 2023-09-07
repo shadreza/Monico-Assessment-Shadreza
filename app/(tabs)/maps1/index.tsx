@@ -148,7 +148,7 @@ const MapTabScreen = () => {
           destination={fiveGeoMarkers[fiveGeoMarkers.length - 1]}
           apikey={GOOGLE_MAPS_API}
           strokeWidth={3}
-          strokeColor="red"
+          strokeColor="#FF1E1E"
           optimizeWaypoints={true}
           waypoints={(fiveGeoMarkers.length > 2) ? fiveGeoMarkers.slice(1, -1) : undefined}
           onReady={(result) => {
