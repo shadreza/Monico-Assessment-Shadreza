@@ -1,9 +1,8 @@
 import axios from 'axios';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-import { View } from '../../../components/Themed';
 
 const MapTabScreen = () => {
 
@@ -53,8 +52,70 @@ const MapTabScreen = () => {
     latitude : fiveGeoMarkers[0].latitude,
     longitude : fiveGeoMarkers[0].longitude,
   })
+  
+  const startMovingOfMarker = async (allPaths: {latitude: number, longitude: number}[]) => {
+    const totalHops = await allPaths.length
+    let i = 0
+    if (totalHops > 0) {
+      setInterval(() => {
+        if (i >= totalHops) {
+          i--
+        } else {
+          setCurrentMockLocation(allPaths[i++])
+        }
+      }, 20)
+    }
+  }
 
-  const [routesStepsFromGoogleMaps, setRoutesStepsFromGoogleMaps] = useState<{}>()
+  const startMovingMarker = async (routesStepsFromGoogleMaps: any[]) => {
+
+    if (routesStepsFromGoogleMaps && routesStepsFromGoogleMaps.length > 0) {
+      let paths: { latitude: number, longitude: number }[] = []
+      const stepPerSecond = 0.0001
+
+      for (let i = 0; i < routesStepsFromGoogleMaps.length - 1; i++) {
+        const pointOne = {
+            latitude: routesStepsFromGoogleMaps[i].start_location.lat,
+            longitude: routesStepsFromGoogleMaps[i].start_location.lng
+        }
+
+        const pointTwo = {
+            latitude: routesStepsFromGoogleMaps[i+1].end_location.lat,
+            longitude: routesStepsFromGoogleMaps[i+1].end_location.lng
+        }
+
+        const biggerFactor = Math.abs(pointOne.latitude - pointTwo.latitude) >= Math.abs(pointOne.longitude - pointTwo.longitude) ? Math.abs(pointOne.latitude - pointTwo.latitude) : Math.abs(pointOne.longitude - pointTwo.longitude)
+        const latitudeStep = pointTwo.latitude >= pointOne.latitude ?
+          ((Math.abs(pointOne.latitude - pointTwo.latitude) / biggerFactor) * stepPerSecond)
+          : -((Math.abs(pointOne.latitude - pointTwo.latitude) / biggerFactor) * stepPerSecond)
+        const longitudeStep = pointTwo.longitude >= pointOne.longitude ?
+          ((Math.abs(pointOne.longitude - pointTwo.longitude) / biggerFactor) * stepPerSecond)
+          : -((Math.abs(pointOne.longitude - pointTwo.longitude) / biggerFactor) * stepPerSecond)
+
+        const totlaSteps = Math.floor(Math.abs((Math.abs(pointOne.latitude - pointTwo.latitude)) / latitudeStep))
+
+        let currentStep = pointOne
+
+        await paths.push(currentStep)
+
+        for (let j = 0; j < totlaSteps; j++) {
+          currentStep = {
+            latitude: currentStep.latitude + latitudeStep,
+            longitude: currentStep.longitude + longitudeStep,
+          }
+          await paths.push(currentStep)
+        }
+        await paths.push({
+          latitude: pointTwo.latitude,
+          longitude: pointTwo.longitude
+        })
+
+      }
+      setTimeout(() => {
+        startMovingOfMarker(paths)
+      }, 3000)
+    }
+  }
 
   useEffect(() => {
     const destination = `${fiveGeoMarkers[fiveGeoMarkers.length - 1].latitude}%2C${fiveGeoMarkers[fiveGeoMarkers.length - 1].longitude}`
@@ -62,15 +123,13 @@ const MapTabScreen = () => {
     const googleMapsRouteRequestUrl = `https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&origin=${origin}&key=${GOOGLE_MAPS_API}`
     axios.get(googleMapsRouteRequestUrl)
       .then((response) => {
-        setRoutesStepsFromGoogleMaps(response.data.routes[0].legs[0].steps)
+        startMovingMarker(response.data.routes[0].legs[0].steps)
       })
       .catch((error) => {
         console.log(error)
         alert('Unable to fetch from Google Maps')
       })
   }, [GOOGLE_MAPS_API])
-
-  
 
   return (
     <View style={styles.container}>
@@ -106,6 +165,12 @@ const MapTabScreen = () => {
           }}
         />
 
+        <Marker
+          coordinate={{ latitude: currentMockLocation.latitude, longitude: currentMockLocation.longitude }}
+          image={currentMarker}
+          title="Current Location"
+        />
+
         {fiveGeoMarkers.map((marker, index) => (
           <Marker
             key={index}
@@ -120,12 +185,6 @@ const MapTabScreen = () => {
             title={fiveGeoMarkers[index].title}
           />
         ))}
-
-        <Marker
-          coordinate={{ latitude: currentMockLocation.latitude, longitude: currentMockLocation.longitude }}
-          image={currentMarker}
-          title="Current Location"
-        />
 
       </MapView>
     </View>
