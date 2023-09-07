@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react';
+import axios from 'axios';
+import { useEffect, useRef, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
@@ -7,7 +8,7 @@ import { View } from '../../../components/Themed';
 const MapTabScreen = () => {
 
   const GOOGLE_MAPS_API = process.env.EXPO_PUBLIC_BACKEND_LINK ? process.env.EXPO_PUBLIC_BACKEND_LINK : ''
-  
+
   const currentMarker = require('../../../assets/images/current-location.png')
   const destinationMarker = require('../../../assets/images/destination.png')
   const startingMarker = require('../../../assets/images/start.png')
@@ -52,6 +53,24 @@ const MapTabScreen = () => {
     latitude : fiveGeoMarkers[0].latitude,
     longitude : fiveGeoMarkers[0].longitude,
   })
+
+  const [routesStepsFromGoogleMaps, setRoutesStepsFromGoogleMaps] = useState<{}>()
+
+  useEffect(() => {
+    const destination = `${fiveGeoMarkers[fiveGeoMarkers.length - 1].latitude}%2C${fiveGeoMarkers[fiveGeoMarkers.length - 1].longitude}`
+    const origin = `${fiveGeoMarkers[0].latitude}%2C${fiveGeoMarkers[0].longitude}`
+    const googleMapsRouteRequestUrl = `https://maps.googleapis.com/maps/api/directions/json?destination=${destination}&origin=${origin}&key=${GOOGLE_MAPS_API}`
+    axios.get(googleMapsRouteRequestUrl)
+      .then((response) => {
+        setRoutesStepsFromGoogleMaps(response.data.routes[0].legs[0].steps)
+      })
+      .catch((error) => {
+        console.log(error)
+        alert('Unable to fetch from Google Maps')
+      })
+  }, [GOOGLE_MAPS_API])
+
+  
 
   return (
     <View style={styles.container}>
