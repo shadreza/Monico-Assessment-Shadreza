@@ -1,6 +1,10 @@
 # Monico-Assessment-Shadreza
 
-![Self Manager HomePage](https://drive.google.com/file/d/1pC_On4owMCa7Cz3W2KWPNZS-unRtHnK7/view?usp=drive_link)
+**demo[https://drive.google.com/file/d/1pC_On4owMCa7Cz3W2KWPNZS-unRtHnK7/view?usp=drive_link]**
+
+![Self Manager HomePage](https://github.com/shadreza/Monico-Assessment-Shadreza/assets/45334134/f75dff0f-68cf-4081-ad63-10474bb8b07c)
+
+
 
     Task 1 : 
 
